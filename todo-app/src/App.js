@@ -12,15 +12,12 @@ function App() {
         id: Date.now()
       }
     ],
-    todo: {
-      task: "",
-      isCompleted: false,
-      id: Date.now()
-    }
+    newTask: ""
   };
 
   const INPUT_CHANGE = "INPUT_CHANGE";
   const ADD_TODO = "ADD_TODO";
+  const RESET_INPUT = "RESET_INPUT";
   const MARK = "MARK";
   const CLEAR_COMPLETED = "CLEAR_COMPLETED";
 
@@ -29,13 +26,33 @@ function App() {
       case INPUT_CHANGE:
         return {
           ...state,
-          todo: { ...state.todo, [action.payload.name]: action.payload.value }
+          newTask: action.payload.value
         };
       case ADD_TODO:
-        // const newToDoList = state.todos.push(state.todo);
-        return { todos: [...state.todos, state.todo] };
+        return {
+          ...state,
+          todos: [
+            ...state.todos,
+            { task: state.newTask, isCompleted: false, id: Date.now() }
+          ]
+        };
+      case RESET_INPUT:
+        return {
+          ...state,
+          newTask: ""
+        };
       case MARK:
-        return {};
+        return {
+          ...state,
+          todos: [
+            ...state.todos.map(curr => {
+              if (curr.id === Number(action.payload.id)) {
+                return { ...curr, isCompleted: action.payload.value };
+              }
+              return curr;
+            })
+          ]
+        };
       case CLEAR_COMPLETED:
         return {};
       default:

@@ -4,19 +4,17 @@ import ToDoCard from "./ToDoCard";
 export default function ToDoList(props) {
   const [state, dispatch] = useReducer(props.reducer, props.initialState);
 
-  console.log(state);
   const handleChange = e => {
     const { name, value } = e.target;
     dispatch({ type: props.INPUT_CHANGE, payload: { name, value } });
-    console.log(`event happened`, state);
   };
   const handleSubmit = e => {
     e.preventDefault();
     const { name, value } = e.target;
     dispatch({ type: props.ADD_TODO, payload: { name, value } });
-    console.log(`task added`, state);
+    dispatch({ type: props.RESET_INPUT });
   };
-
+  console.log(state);
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -24,7 +22,12 @@ export default function ToDoList(props) {
         <label>
           {" "}
           Task:
-          <input type="text" name="task" onChange={handleChange} />
+          <input
+            type="text"
+            name="newTask"
+            onChange={handleChange}
+            value={state.newTask}
+          />
         </label>
         <input type="submit" />
       </form>
@@ -32,7 +35,12 @@ export default function ToDoList(props) {
         {state.todos.map((curr, index) => {
           return (
             <div key={index}>
-              <ToDoCard curr={curr} index={index} />
+              <ToDoCard
+                curr={curr}
+                index={index}
+                {...props}
+                dispatch={dispatch}
+              />
             </div>
           );
         })}
