@@ -1,0 +1,9 @@
+.App {
+  text-align: center;
+}
+
+.checkbox {
+  height: 5px;
+  width: 5px;
+  border: 1px solid black;
+}
