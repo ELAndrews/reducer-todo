@@ -6,15 +6,20 @@ export default function ToDoList(props) {
 
   const handleChange = e => {
     const { name, value } = e.target;
-    dispatch({ type: props.INPUT_CHANGE, payload: { name, value } });
+    dispatch({ type: "INPUT_CHANGE", payload: { name, value } });
   };
+
   const handleSubmit = e => {
     e.preventDefault();
     const { name, value } = e.target;
-    dispatch({ type: props.ADD_TODO, payload: { name, value } });
-    dispatch({ type: props.RESET_INPUT });
+    dispatch({ type: "ADD_TODO", payload: { name, value } });
   };
-  console.log(state);
+
+  const handleClick = e => {
+    dispatch({ type: "CLEAR_COMPLETED" });
+    console.log(`event happened`, state);
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -31,6 +36,7 @@ export default function ToDoList(props) {
         </label>
         <input type="submit" />
       </form>
+      <button onClick={handleClick}>Clean up!</button>
       <div className="ToDoContainer">
         {state.todos.map((curr, index) => {
           return (

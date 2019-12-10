@@ -17,7 +17,6 @@ function App() {
 
   const INPUT_CHANGE = "INPUT_CHANGE";
   const ADD_TODO = "ADD_TODO";
-  const RESET_INPUT = "RESET_INPUT";
   const MARK = "MARK";
   const CLEAR_COMPLETED = "CLEAR_COMPLETED";
 
@@ -36,11 +35,6 @@ function App() {
             { task: state.newTask, isCompleted: false, id: Date.now() }
           ]
         };
-      case RESET_INPUT:
-        return {
-          ...state,
-          newTask: ""
-        };
       case MARK:
         return {
           ...state,
@@ -54,7 +48,10 @@ function App() {
           ]
         };
       case CLEAR_COMPLETED:
-        return {};
+        return {
+          ...state,
+          todos: [...state.todos.filter(curr => curr.isCompleted === false)]
+        };
       default:
         return state;
     }
@@ -63,12 +60,7 @@ function App() {
   return (
     <div>
       <Header />
-      <ToDoList
-        reducer={reducer}
-        INPUT_CHANGE={INPUT_CHANGE}
-        ADD_TODO={ADD_TODO}
-        initialState={initialState}
-      />
+      <ToDoList reducer={reducer} initialState={initialState} />
     </div>
   );
 }
