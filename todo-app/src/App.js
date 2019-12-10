@@ -5,7 +5,13 @@ import Header from "./components/Header";
 
 function App() {
   const initialState = {
-    todos: [],
+    todos: [
+      {
+        task: "Complete MVP",
+        isCompleted: false,
+        id: Date.now()
+      }
+    ],
     todo: {
       task: "",
       isCompleted: false,
@@ -23,10 +29,10 @@ function App() {
       case INPUT_CHANGE:
         return {
           ...state,
-          todos: { ...state.todo, [action.payload.name]: action.payload.value }
+          todo: { ...state.todo, [action.payload.name]: action.payload.value }
         };
       case ADD_TODO:
-        return { todos: [...state.todos, state.todo], todo: initialState.todo };
+        return { todos: [...state.todos, state.todo] };
       case MARK:
         return {};
       case CLEAR_COMPLETED:
@@ -39,7 +45,12 @@ function App() {
   return (
     <div>
       <Header />
-      <ToDoList reducer={reducer} initialState={initialState} />
+      <ToDoList
+        reducer={reducer}
+        INPUT_CHANGE={INPUT_CHANGE}
+        ADD_TODO={ADD_TODO}
+        initialState={initialState}
+      />
     </div>
   );
 }
