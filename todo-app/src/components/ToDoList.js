@@ -10,28 +10,23 @@ export default function ToDoList(props) {
     dispatch({ type: props.INPUT_CHANGE, payload: { name, value } });
     console.log(`event happened`, state);
   };
-  const addTask = e => {
+  const handleSubmit = e => {
     e.preventDefault();
     const { name, value } = e.target;
-    dispatch({ type: props.ADD_TODO });
+    dispatch({ type: props.ADD_TODO, payload: { name, value } });
     console.log(`task added`, state);
   };
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <h3>To do list:</h3>
         <label>
           {" "}
           Task:
-          <input
-            type="text"
-            name="task"
-            onChange={handleChange}
-            value={state.todo.task}
-          />
+          <input type="text" name="task" onChange={handleChange} />
         </label>
-        <input type="submit" onSubmit={addTask} />
+        <input type="submit" />
       </form>
       <div className="ToDoContainer">
         {state.todos.map((curr, index) => {

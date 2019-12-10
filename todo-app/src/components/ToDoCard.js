@@ -1,5 +1,4 @@
 import React from "react";
-import { cursor } from "sisteransi";
 
 export default function ToDoCard(props) {
   return (

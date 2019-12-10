@@ -32,6 +32,7 @@ function App() {
           todo: { ...state.todo, [action.payload.name]: action.payload.value }
         };
       case ADD_TODO:
+        // const newToDoList = state.todos.push(state.todo);
         return { todos: [...state.todos, state.todo] };
       case MARK:
         return {};
