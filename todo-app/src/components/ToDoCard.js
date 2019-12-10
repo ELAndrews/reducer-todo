@@ -4,6 +4,7 @@ export default function ToDoCard(props) {
   const handleChange = e => {
     const { id, name, value } = e.target;
     props.dispatch({ type: "MARK", payload: { id, name, value } });
+    console.log(`event happened`, props.curr);
   };
 
   return (
@@ -13,6 +14,7 @@ export default function ToDoCard(props) {
         type="checkbox"
         name="isCompleted"
         id={props.curr.id}
+        checked={props.curr.isCompleted}
         value={!props.curr.isCompleted}
         onChange={handleChange}
       />

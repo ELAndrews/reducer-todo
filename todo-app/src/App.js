@@ -41,7 +41,10 @@ function App() {
           todos: [
             ...state.todos.map(curr => {
               if (curr.id === Number(action.payload.id)) {
-                return { ...curr, isCompleted: action.payload.value };
+                return {
+                  ...curr,
+                  isCompleted: JSON.parse(action.payload.value)
+                };
               }
               return curr;
             })
